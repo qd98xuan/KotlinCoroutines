@@ -12,6 +12,7 @@ import com.example.jetpackcoroutines.http.Fiction
 import com.example.jetpackcoroutines.http.RetrofitService
 import com.example.jetpackcoroutines.http.Weatherinfo
 import com.example.jetpackcoroutines.http.dataConvert
+import com.example.jetpackcoroutines.rv.People
 import com.permissionx.guolindev.PermissionX
 import com.permissionx.guolindev.callback.RequestCallback
 import kotlinx.coroutines.*
@@ -32,7 +33,7 @@ class MainViewModel : ViewModel() {
                 ) {
                     if (allGranted) {
                         GlobalScope.launch {
-                            withContext(Dispatchers.Main){
+                            withContext(Dispatchers.Main) {
                                 var datas = getDatas()
                                 weatherinfo.value = datas
                             }
@@ -50,5 +51,19 @@ class MainViewModel : ViewModel() {
                 }
 
             })
+    }
+
+    var p = arrayListOf<People>(
+        People("张三", "足球", 18),
+        People("李四", "篮球", 19),
+        People("王二", "羽毛球", 30)
+    )
+    var people = MutableLiveData<ArrayList<People>>(
+        p
+    )
+
+    fun addLine() {
+        p.add(People("王二", "羽毛球", 30))
+        people.value = p
     }
 }
